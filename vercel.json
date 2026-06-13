@@ -3,7 +3,7 @@
   "framework": null,
   "installCommand": "npm install",
   "functions": {
-    "api/**/*.ts": {
+    "api/[[...path]].ts": {
       "maxDuration": 30
     }
   },

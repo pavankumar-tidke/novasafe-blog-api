@@ -11,9 +11,17 @@ export async function verifyAdmin(
   config: AppConfig,
 ): Promise<AdminContext> {
   const authHeader = req.headers.authorization;
-  const token = extractBearerToken(
+  return verifyAdminFromHeader(
     typeof authHeader === "string" ? authHeader : authHeader?.[0],
+    config,
   );
+}
+
+export async function verifyAdminFromHeader(
+  authHeader: string | undefined,
+  config: AppConfig,
+): Promise<AdminContext> {
+  const token = extractBearerToken(authHeader);
 
   if (!token) {
     throw new UnauthorizedError("Missing or invalid Authorization header");
@@ -38,9 +46,17 @@ export async function isAdminRequest(
   config: AppConfig,
 ): Promise<boolean> {
   const authHeader = req.headers.authorization;
-  const token = extractBearerToken(
+  return isAdminFromHeader(
     typeof authHeader === "string" ? authHeader : authHeader?.[0],
+    config,
   );
+}
+
+export async function isAdminFromHeader(
+  authHeader: string | undefined,
+  config: AppConfig,
+): Promise<boolean> {
+  const token = extractBearerToken(authHeader);
   if (!token) return false;
   const result = await verifyAccessToken(config, token);
   return result.valid;

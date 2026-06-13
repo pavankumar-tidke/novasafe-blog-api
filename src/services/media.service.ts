@@ -156,6 +156,12 @@ export class MediaService {
     return transform;
   }
 
+  async serveBuffer(asset: MediaDocument): Promise<{ buffer: Buffer; mimeType: string }> {
+    const stored = await this.provider.get(this.resolveStorageKey(asset));
+    if (!stored) throw new NotFoundError("Media file");
+    return { buffer: stored.buffer, mimeType: asset.mime_type };
+  }
+
   async serve(
     asset: MediaDocument,
     res: VercelResponse,

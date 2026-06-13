@@ -68,7 +68,9 @@ Response envelope: `{ success: true, data, meta? }` or `{ success: false, error 
 
 ```
 src/
-├── api/           # Vercel serverless route handlers
+├── api/           # Single catch-all serverless function (Hobby plan: ≤12 functions)
+│   └── [[...path]].ts
+├── src/app.ts     # Hono router — all API routes
 ├── lib/           # mongodb singleton, jwt, response helpers
 ├── repositories/  # MongoDB repositories (ported from Workers)
 ├── services/      # auth, media, seo
