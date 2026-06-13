@@ -2,7 +2,7 @@
   "version": 2,
   "buildCommand": "npm run typecheck",
   "functions": {
-    "src/api/**/*.ts": {
+    "api/**/*.ts": {
       "maxDuration": 30
     }
   },
