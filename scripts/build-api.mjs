@@ -17,6 +17,9 @@ await esbuild.build({
   target: "node22",
   outfile,
   format: "esm",
+  // Keep mongodb (and all npm deps) out of the bundle — the driver uses
+  // dynamic require() for Node built-ins like "timers", which breaks in ESM bundles.
+  packages: "external",
   alias: {
     "@": resolve(root, "src"),
   },
