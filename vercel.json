@@ -1,0 +1,24 @@
+{
+  "version": 2,
+  "buildCommand": "npm run typecheck",
+  "functions": {
+    "src/api/**/*.ts": {
+      "maxDuration": 30
+    }
+  },
+  "rewrites": [
+    { "source": "/api/v1/(.*)", "destination": "/api/$1" },
+    { "source": "/sitemap.xml", "destination": "/api/seo/sitemap" },
+    { "source": "/robots.txt", "destination": "/api/seo/robots" },
+    { "source": "/feed.xml", "destination": "/api/seo/feed" },
+    { "source": "/rss.xml", "destination": "/api/seo/feed" }
+  ],
+  "headers": [
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        { "key": "Access-Control-Allow-Credentials", "value": "true" }
+      ]
+    }
+  ]
+}
