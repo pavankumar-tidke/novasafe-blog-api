@@ -84,4 +84,14 @@ vercel env pull .env.local
 vercel deploy
 ```
 
+**Vercel project settings (Dashboard → Settings → Build & Deployment):**
+
+| Setting | Value |
+|---------|-------|
+| Framework Preset | **Other** |
+| Build Command | *(leave empty — typecheck runs locally/CI)* |
+| Output Directory | **public** |
+
+This is an API-only project. The `public/` folder contains a minimal landing page so Vercel's static output check passes; all API logic lives in `api/`.
+
 Do not commit secrets. Set production env vars in the Vercel dashboard.

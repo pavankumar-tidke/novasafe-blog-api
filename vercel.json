@@ -1,6 +1,7 @@
 {
   "version": 2,
-  "buildCommand": "npm run typecheck",
+  "framework": null,
+  "installCommand": "npm install",
   "functions": {
     "api/**/*.ts": {
       "maxDuration": 30
