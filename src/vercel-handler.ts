@@ -1,5 +1,5 @@
 import { handle } from "hono/vercel";
 import { app } from "@/app";
 
-/** Single serverless function — all /api/* routes (Hobby plan: max 12 functions). */
+/** Bundled entry for Vercel — see scripts/build-api.mjs */
 export default handle(app);

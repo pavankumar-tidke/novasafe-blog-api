@@ -6,3 +6,7 @@ uploads/
 *.log
 .DS_Store
 .env
+
+# esbuild output (generated at build time)
+api/[[...path]].js
+api/[[...path]].js.map

@@ -1,9 +1,10 @@
 {
   "version": 2,
   "framework": null,
+  "buildCommand": "npm run build",
   "installCommand": "npm install",
   "functions": {
-    "api/[[...path]].ts": {
+    "api/[[...path]].js": {
       "maxDuration": 30
     }
   },

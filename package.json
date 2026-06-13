@@ -7,8 +7,8 @@
     "node": ">=22"
   },
   "scripts": {
-    "dev": "vercel dev",
-    "build": "tsc --noEmit",
+    "dev": "npm run build && vercel dev",
+    "build": "npm run typecheck && node scripts/build-api.mjs",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
@@ -23,6 +23,7 @@
     "@types/busboy": "^1.5.4",
     "@types/node": "^22.13.10",
     "typescript": "^5.8.2",
+    "esbuild": "^0.25.0",
     "vercel": "^41.4.0"
   }
 }
