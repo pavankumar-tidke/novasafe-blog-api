@@ -8,7 +8,6 @@ import { ok } from "@/lib/utils";
 import { getConfig } from "@/types/config";
 import type { AppConfig } from "@/types/config";
 import type { AdminContext } from "@/types/auth";
-import type { HealthResponse } from "@/types/api";
 import { requireMongo } from "@/middleware/requireMongo";
 import type { MongoRepositories } from "@/repositories/types";
 import { MongoClientError } from "@/repositories/client/errors";
@@ -32,6 +31,7 @@ import type { CreatePostInput, ListPostsFilter } from "@/types/documents/post";
 import type { CreateCategoryInput } from "@/types/documents/category";
 import type { CreateTagInput } from "@/types/documents/tag";
 import { NotFoundError, ValidationError } from "@/lib/errors";
+import { buildHealthResponse, isReady } from "@/lib/health";
 
 type AppVariables = {
   config: AppConfig;
@@ -95,16 +95,15 @@ const withMongo = createMiddleware<{ Variables: AppVariables }>(async (c, next) 
 
 // --- Health ---
 
-app.get("/api/health", (c) => {
-  const body: HealthResponse = {
-    status: "ok",
-    environment: c.get("config").ENVIRONMENT,
-    timestamp: new Date().toISOString(),
-  };
+app.get("/api/health", async (c) => {
+  const body = await buildHealthResponse();
   return c.json(ok(body));
 });
 
-app.get("/api/health/ready", (c) => c.json(ok({ ready: true })));
+app.get("/api/health/ready", async (c) => {
+  const ready = await isReady();
+  return c.json(ok({ ready, timestamp: new Date().toISOString() }));
+});
 
 // --- Auth ---
 

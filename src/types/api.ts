@@ -21,8 +21,43 @@ export type ApiErrorBody = {
   requestId?: string;
 };
 
+export type MongoHealthCheck = {
+  configured: boolean;
+  connected: boolean;
+  host: string | null;
+  database: string;
+  error?: string;
+};
+
+export type HealthChecks = {
+  mongodb: MongoHealthCheck;
+  auth: {
+    jwtConfigured: boolean;
+    adminLoginConfigured: boolean;
+    issuer: string;
+    audience: string;
+  };
+  media: {
+    provider: "local";
+    storagePath: string;
+    maxBytes: number;
+  };
+  site: {
+    url: string | null;
+    name: string | null;
+  };
+  cors: {
+    allowedOriginsCount: number;
+    origins: string[];
+  };
+  api: {
+    basePath: string;
+  };
+};
+
 export type HealthResponse = {
-  status: string;
+  status: "ok" | "degraded";
   environment: string;
   timestamp: string;
+  checks: HealthChecks;
 };
