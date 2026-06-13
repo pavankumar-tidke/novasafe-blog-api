@@ -1,5 +1,9 @@
-import { handle } from "hono/vercel";
+import { getRequestListener } from "@hono/node-server";
 import { app } from "@/app";
 
-/** Bundled entry for Vercel — see scripts/build-api.mjs */
-export default handle(app);
+/**
+ * Vercel invokes api/*.js with Node.js (req, res).
+ * hono/vercel's handle() returns a Fetch handler — incompatible with bundled .js.
+ * getRequestListener bridges IncomingMessage → Hono → ServerResponse.
+ */
+export default getRequestListener(app.fetch);

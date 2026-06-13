@@ -1,5 +1,5 @@
 // src/vercel-handler.ts
-import { handle } from "hono/vercel";
+import { getRequestListener } from "@hono/node-server";
 
 // src/app.ts
 import { Hono } from "hono";
@@ -1775,7 +1775,7 @@ app.get("/api/seo/feed", withMongo, async (c) => {
 });
 
 // src/vercel-handler.ts
-var vercel_handler_default = handle(app);
+var vercel_handler_default = getRequestListener(app.fetch);
 export {
   vercel_handler_default as default
 };
